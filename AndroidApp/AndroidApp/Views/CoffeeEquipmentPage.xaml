@@ -1,19 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AndroidApp.Views.CoffeeEquipmentPage">
+             x:Class="AndroidApp.Views.CoffeeEquipmentPage"
+             xmlns:viewmodels="clr-namespace:AndroidApp.ViewModels"
+             x:DataType="viewmodels:CoffeeEquipmentViewModel"
+             xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms">
+    <ContentPage.BindingContext>
+        <viewmodels:CoffeeEquipmentViewModel/>
+    </ContentPage.BindingContext>
     <ContentPage.Content>
         <Grid RowDefinitions="*,Auto, auto, *">
+
             <Label x:Name="LabelCount"
                        Grid.Row="1"
-                   BackgroundColor="Coral"
-                Text="Welcome to Xamarin.Forms!"
+                  
+                Text="{Binding CountDisplay}"
+                   TextColor="Brown"
                 VerticalOptions="Center" 
                 HorizontalOptions="Center" 
                    FontSize="Large"/>
-
-            <Button x:Name="ButtonClick" Grid.Row="2" Text="Click me"
-                    Clicked="ButtonClick_Clicked"/>
+            <zxing:ZXingScannerView IsScanning="True" 
+                                    OnScanResult="ZXingScannerView_OnScanResult"/>
+            <Button x:Name="ButtonClick" Grid.Row="2"
+                    Command="{Binding IncreaseCount}"
+                    Text="Нажми на меня"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

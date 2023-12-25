@@ -1,9 +1,10 @@
-﻿using System;
+﻿using AndroidApp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -15,15 +16,16 @@ namespace AndroidApp.Views
         public CoffeeEquipmentPage()
         {
             InitializeComponent();
-            LabelCount.Text = "Hello User";
-            ButtonClick.Clicked += ButtonClick_Clicked;
+            
+            BindingContext = new CoffeeEquipmentViewModel();
         }
-        int count = 0;
-        private void ButtonClick_Clicked(object sender, EventArgs e)
-        {
-            count++;
 
-            LabelCount.Text = $"Вы нажали {count} раз"; 
+        private void ZXingScannerView_OnScanResult(ZXing.Result result)
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                LabelCount.Text = result.Text + " (type: " + result.BarcodeFormat.ToString() + ") ";
+            }); 
         }
     }
 }
