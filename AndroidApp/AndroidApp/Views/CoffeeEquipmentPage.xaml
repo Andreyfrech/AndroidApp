@@ -10,8 +10,8 @@
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <Grid RowDefinitions="*,Auto, auto, *">
-
-            <Label x:Name="LabelCount"
+    
+                <Label x:Name="LabelCount"
                        Grid.Row="1"
                   
                 Text="{Binding CountDisplay}"
@@ -19,11 +19,27 @@
                 VerticalOptions="Center" 
                 HorizontalOptions="Center" 
                    FontSize="Large"/>
-            <zxing:ZXingScannerView IsScanning="True" 
-                                    OnScanResult="ZXingScannerView_OnScanResult"/>
+                <Label x:Name="LabelBarCode"
+                       Grid.Row="1"
+                  
+                Text="{Binding CountDisplay}"
+                   TextColor="Brown"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center" 
+                   FontSize="Large"/>
+            
+            <zxing:ZXingScannerView IsScanning="{Binding IsScann}" 
+                                    ScanResultCommand="{Binding ScanBarCode}"
+                                     Result="{Binding result, Mode=TwoWay}"
+                                    IsVisible="{Binding ScanVisible}"
+                       WidthRequest="10"
+                       HeightRequest="12"/>
             <Button x:Name="ButtonClick" Grid.Row="2"
                     Command="{Binding IncreaseCount}"
-                    Text="Нажми на меня"/>
+                    Text="Нажм на меня"/>
+            <Button x:Name="ScanButtonClick" Grid.Row="3"
+                    Command="{Binding ScanBarCodeVisible}"
+                    Text="Отсканировать"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>
